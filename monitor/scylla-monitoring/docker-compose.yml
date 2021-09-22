@@ -1,27 +1,18 @@
 version: '3'
 services:
-  alertmanager:
-    container_name: aalert
-    image: prom/alertmanager:v0.21.0
-    ports:
-    - 9093:9093
-    networks:
-      - scylla-network
-    volumes:
-    - "./prometheus/rule_config.yml:/etc/alertmanager/config.yml"
   grafana:
     container_name: agraf
     environment:
     - GF_PANELS_DISABLE_SANITIZE_HTML=true
     - GF_PATHS_PROVISIONING=/var/lib/grafana/provisioning
-    - GF_INSTALL_PLUGINS=grafana-piechart-panel
-    - GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=scylladb-scylla-datasource,  grafana-piechart-panel 
+    #- GF_INSTALL_PLUGINS=grafana-piechart-panel
+    - GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=scylladb-scylla-datasource
     # This is where you set Grafana security
     - GF_AUTH_BASIC_ENABLED=true
     #- GF_AUTH_ANONYMOUS_ENABLED=true
     #- GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
     - GF_SECURITY_ADMIN_PASSWORD=admin
-    image: grafana/grafana:7.3.5
+    image: grafana/grafana
     ports:
     - 3000:3000
     networks:
