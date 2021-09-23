@@ -67,5 +67,8 @@ Grafana:
 http://<your IP>:3000
 ```
 
+## Diagram
+![Topology example](ScyllaDB-MMS.jpg)
+
 
 
