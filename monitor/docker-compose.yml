@@ -4,12 +4,12 @@ services:
   scylla-manager:
     image: scylladb/scylla-manager
     container_name: scylla-manager
+    ports:
+      - "0.0.0.0:5080:5080"
     networks:
       - scylla-network
     depends_on:
       - scylla-manager-db
-    volumes:
-      - "./scylla-manager.yaml:/etc/scylla/scylla-manager.yaml"
 
   scylla-manager-db:
     image: scylladb/scylla

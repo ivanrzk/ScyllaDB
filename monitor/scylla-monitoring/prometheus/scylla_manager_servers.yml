@@ -1,4 +1,4 @@
 # List Scylla Manager end points
 
 - targets:
-  - 172.21.0.7:56090
+  - 172.21.0.6:5090
