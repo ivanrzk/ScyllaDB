@@ -68,7 +68,7 @@ http://<your IP>:3000
 ```
 
 ## Diagram
-![Topology example](ScyllaDB-MMS.jpg)
+![Topology example](https://github.com/ivanrzk/ScyllaDB/blob/244135dd406bf40d96fe018c71e14ee7e342ab5e/ScyllaDB-MMS.JPG)
 
 
 
