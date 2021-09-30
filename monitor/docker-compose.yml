@@ -18,7 +18,7 @@ services:
       - "./scylla_manager_db_data:/var/lib/scylla"
     networks:
       - scylla-network
-    command: --smp 1 --memory 100M
+    command: --smp 1 --memory 100M --overprovisioned 1
 
 volumes:
   scylla_manager_db_data: ~

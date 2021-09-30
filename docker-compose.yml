@@ -48,17 +48,18 @@ services:
 
   minio:
     image: minio/minio
-    container_name: builder_agent_scylla
+    container_name: minio
     volumes:
       - "./minio_data:/data"
     networks:
       scylla-network:
     ports:
       - "9001:9000"
+      - "39049:39049"
     environment:
       MINIO_ACCESS_KEY: minio
       MINIO_SECRET_KEY: minio123
-    command: server /data
+    command: server /data --console-address ":39049"
     
 networks:
   scylla-network:
