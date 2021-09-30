@@ -29,7 +29,7 @@ services:
     command:
     - --config.file=/mnt/config/loki-config.yaml
     container_name: loki
-    image: grafana/loki:2.0.0
+    image: grafana/loki
     ports:
     - 3100:3100
     networks:
