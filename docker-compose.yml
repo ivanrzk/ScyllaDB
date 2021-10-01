@@ -1,11 +1,19 @@
-version: '3'
-services:
+version: '3.7'
+# Settings and configurations that are common for all containers
+x-scylla-common: &scylla-common
+  image: scylladb/scylla-with-agent
+  build:
+    context: ./
+    dockerfile: ./Dockerfile
+  restart: unless-stopped
+  command: --seeds=scylla00 --memory 1G --smp 1 --overprovisioned 1 --api-address 0.0.0.0
+  networks:
+    - scylla-network
 
+services:
   scylla00:
-    image: scylladb/scylla-with-agent
+    <<: *scylla-common
     container_name: scylla00
-    restart: unless-stopped
-    command: --seeds=scylla00 --memory 1G --smp 1 --overprovisioned 1 --api-address 0.0.0.0
     volumes:
       - "./scylla/scylla.yaml:/etc/scylla/scylla.yaml"
       - "./scylla/cassandra-rackdc.properties.dc1:/etc/scylla/cassandra-rackdc.properties"
@@ -13,14 +21,11 @@ services:
     ports:
       - "${SCYLLA_PORT00}"
       - "${SCYLLA_PROMPORT00}"
-    networks:
-      - scylla-network
+    
 
   scylla01:
-    image: scylladb/scylla-with-agent
+    <<: *scylla-common
     container_name: scylla01
-    restart: unless-stopped
-    command: --seeds=scylla00 --memory 1G --smp 1 --overprovisioned 1 --api-address 0.0.0.0
     volumes:
       - "./scylla/scylla.yaml:/etc/scylla/scylla.yaml"
       - "./scylla/cassandra-rackdc.properties.dc1:/etc/scylla/cassandra-rackdc.properties"
@@ -28,14 +33,10 @@ services:
     ports:
       - "${SCYLLA_PORT01}"
       - "${SCYLLA_PROMPORT01}"
-    networks:
-      - scylla-network
 
   scylla02:
-    image: scylladb/scylla-with-agent
+    <<: *scylla-common
     container_name: scylla02
-    restart: unless-stopped
-    command: --seeds=scylla00 --memory 1G --smp 1 --overprovisioned 1 --api-address 0.0.0.0
     volumes:
       - "./scylla/scylla.yaml:/etc/scylla/scylla.yaml"
       - "./scylla/cassandra-rackdc.properties.dc1:/etc/scylla/cassandra-rackdc.properties"
@@ -43,8 +44,6 @@ services:
     ports:
       - "${SCYLLA_PORT02}"
       - "${SCYLLA_PROMPORT02}"
-    networks:
-      - scylla-network
 
   minio:
     image: minio/minio
