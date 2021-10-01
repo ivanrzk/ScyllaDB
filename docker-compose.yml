@@ -10,15 +10,15 @@ x-scylla-common: &scylla-common
   networks:
     - scylla-network
 x-scylla-vol-common: &scylla-vol-common
-  volumes:
-    - "./scylla/scylla.yaml:/etc/scylla/scylla.yaml"
-    - "./scylla/cassandra-rackdc.properties.dc1:/etc/scylla/cassandra-rackdc.properties"
+  - "./scylla/scylla.yaml:/etc/scylla/scylla.yaml"
+  - "./scylla/cassandra-rackdc.properties.dc1:/etc/scylla/cassandra-rackdc.properties"
 
 services:
   scylla00:
     <<: *scylla-common
     container_name: scylla00
-    <<: *scylla-vol-common
+    volumes:
+      <<: *scylla-vol-common
       - "scylla00:/var/lib/scylla"
     ports:
       - "${SCYLLA_PORT00}"
@@ -27,7 +27,8 @@ services:
   scylla01:
     <<: *scylla-common
     container_name: scylla01
-    <<: *scylla-vol-common
+    volumes:  
+      <<: *scylla-vol-common
       - "scylla01:/var/lib/scylla"
     ports:
       - "${SCYLLA_PORT01}"
@@ -36,7 +37,8 @@ services:
   scylla02:
     <<: *scylla-common
     container_name: scylla02
-    <<: *scylla-vol-common
+    volumes:
+      <<: *scylla-vol-common
       - "scylla02:/var/lib/scylla"
     ports:
       - "${SCYLLA_PORT02}"
