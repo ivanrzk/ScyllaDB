@@ -30,6 +30,8 @@ services:
     - --config.file=/mnt/config/loki-config.yaml
     container_name: loki
     image: grafana/loki
+    profile:
+      - loki
     ports:
     - 3100:3100
     networks:
@@ -59,6 +61,8 @@ services:
     - --config.file=/etc/promtail/config.yml
     container_name: promtail
     image: grafana/promtail:2.0.0
+    profiles:
+      - loki
     ports:
     - 1514:1514
     - 9080:9080

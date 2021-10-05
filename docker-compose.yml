@@ -47,6 +47,8 @@ services:
 
   minio:
     image: minio/minio
+    profiles:
+      - minio
     container_name: minio
     volumes:
       - "./minio_data:/data"
